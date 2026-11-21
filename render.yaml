@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: doctor-tracker-api
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: NODE_ENV
+        value: production
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      # Render generates a long random secret for you.
+      - key: JWT_SECRET
+        generateValue: true
+      # Paste these in the Render dashboard when it asks (never commit them).
+      - key: MONGO_URI
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
